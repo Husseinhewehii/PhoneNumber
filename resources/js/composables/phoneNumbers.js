@@ -12,12 +12,6 @@ export default function useCompanies() {
         checkPages(response);
     }
 
-    // const getPhoneNumbersFiltered = async (query) => {
-    //     let response = await axios.get('/api/phoneNumbers?'+query)
-    //     phoneNumbers.value = response.data.data
-    //     checkPages(response);
-    // }
-
     function checkPages(response){
         if(response.data.data.meta.current_page == response.data.data.meta.last_page){
             isLastPage.value = true;
