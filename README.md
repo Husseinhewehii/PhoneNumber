@@ -83,18 +83,20 @@ php artisan key:generate
 cp .env .env.testing
 ```
 
-> Configure .env files
+> Configure .env file
 
 ``` bash
-update .env file to look like this:
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
 #DB_PORT=3306
 #DB_DATABASE=laravel
 #DB_USERNAME=root
 #DB_PASSWORD=
+```
 
-update .env.testing file to look like this:
+> Configure .env.testing file
+
+``` bash
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
 #DB_PORT=3306
