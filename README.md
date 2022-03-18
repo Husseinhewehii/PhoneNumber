@@ -88,7 +88,7 @@ DB_CONNECTION=sqlite
 #DB_USERNAME=root
 #DB_PASSWORD=
 
-update .env file to look like this:
+update .env.testing file to look like this:
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
 #DB_PORT=3306
