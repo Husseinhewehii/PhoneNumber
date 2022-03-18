@@ -20276,21 +20276,24 @@ function useCompanies() {
   var isFirstPage = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
 
   var getPhoneNumbers = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(query) {
-      var response;
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var query,
+          response,
+          _args = arguments;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              query = _args.length > 0 && _args[0] !== undefined ? _args[0] : "";
+              _context.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/phoneNumbers?' + query);
 
-            case 2:
+            case 3:
               response = _context.sent;
               phoneNumbers.value = response.data.data;
               checkPages(response);
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -20298,7 +20301,7 @@ function useCompanies() {
       }, _callee);
     }));
 
-    return function getPhoneNumbers(_x) {
+    return function getPhoneNumbers() {
       return _ref.apply(this, arguments);
     };
   }();

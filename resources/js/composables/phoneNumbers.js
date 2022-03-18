@@ -6,7 +6,7 @@ export default function useCompanies() {
     const isLastPage = ref(false)
     const isFirstPage = ref(true)
 
-    const getPhoneNumbers = async (query) => {
+    const getPhoneNumbers = async (query = "") => {
         let response = await axios.get('/api/phoneNumbers?'+query)
         phoneNumbers.value = response.data.data
         checkPages(response);
