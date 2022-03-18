@@ -104,7 +104,7 @@ DB_DATABASE=testing_database
 ```
 
 
-> You Don't Need to Create Or Migrate Database Cause I allowed the Database file to be uploaded to Github
+> You Don't Need to Create Or Migrate Database Cause I allowed the Database files to be uploaded to Github
 but you can seed. 
 
 ``` bash
