@@ -19878,7 +19878,6 @@ __webpack_require__.r(__webpack_exports__);
     var _usephoneNumbers = (0,_composables_phoneNumbers__WEBPACK_IMPORTED_MODULE_0__["default"])(),
         phoneNumbers = _usephoneNumbers.phoneNumbers,
         getPhoneNumbers = _usephoneNumbers.getPhoneNumbers,
-        getPhoneNumbersFiltered = _usephoneNumbers.getPhoneNumbersFiltered,
         isLastPage = _usephoneNumbers.isLastPage,
         isFirstPage = _usephoneNumbers.isFirstPage;
 
@@ -19887,8 +19886,7 @@ __webpack_require__.r(__webpack_exports__);
       phoneNumbers: phoneNumbers,
       isLastPage: isLastPage,
       isFirstPage: isFirstPage,
-      getPhoneNumbers: getPhoneNumbers,
-      getPhoneNumbersFiltered: getPhoneNumbersFiltered
+      getPhoneNumbers: getPhoneNumbers
     };
   },
   methods: {
@@ -19896,39 +19894,49 @@ __webpack_require__.r(__webpack_exports__);
       this.meta = this.phoneNumbers.meta;
 
       if (this.meta.current_page < this.meta.last_page) {
-        getPhoneNumbers(this.meta.current_page + 1);
+        this.queryParameters.page = "page=" + parseInt(this.meta.current_page + 1);
+        this.prepareFilterQuery();
+        getPhoneNumbers(this.query);
       }
     },
     previousButton: function previousButton(getPhoneNumbers) {
       this.meta = this.phoneNumbers.meta;
 
       if (this.meta.current_page > 1) {
-        getPhoneNumbers(this.meta.current_page - 1);
+        this.queryParameters.page = "page=" + parseInt(this.meta.current_page - 1);
+        this.prepareFilterQuery();
+        getPhoneNumbers(this.query);
       }
     },
-    changeCountry: function changeCountry(getPhoneNumbersFiltered, country) {
+    changeCountry: function changeCountry(getPhoneNumbers, country) {
       this.country = country;
-      var query = this.prepareFilterQuery();
-      getPhoneNumbersFiltered(query);
+      this.queryParameters.country = "filter[country]=" + this.country;
+      this.queryParameters.page = "page=1";
+
+      if (this.country == "Select Country") {
+        delete this.queryParameters.country;
+      }
+
+      this.prepareFilterQuery();
+      getPhoneNumbers(this.query);
     },
-    changeState: function changeState(getPhoneNumbersFiltered, state) {
+    changeState: function changeState(getPhoneNumbers, state) {
       this.state = state;
       this.stateMsg = this.state == "ok" ? "Valid" : this.state == "nok" ? "InValid" : "Valid Phone Numbers";
-      var query = this.prepareFilterQuery();
-      getPhoneNumbersFiltered(query);
-    },
-    prepareFilterQuery: function prepareFilterQuery() {
-      var query = "";
-      var stateParameter = this.state == "Valid Phone Numbers" ? "" : "filter[state]=" + this.state;
-      var countryParameter = this.country == "Select Country" ? "" : "filter[country]=" + this.country;
-      query += stateParameter;
-      query += countryParameter;
+      this.queryParameters.state = "filter[state]=" + this.state;
+      this.queryParameters.page = "page=1";
 
-      if (stateParameter && countryParameter) {
-        query = "".concat(stateParameter, "&").concat(countryParameter);
+      if (this.state == "Valid Phone Numbers") {
+        delete this.queryParameters.state;
       }
 
-      return query;
+      this.prepareFilterQuery();
+      getPhoneNumbers(this.query);
+    },
+    prepareFilterQuery: function prepareFilterQuery() {
+      this.query = Object.values(this.queryParameters).reduce(function (t, value) {
+        return t + "&" + value;
+      });
     }
   },
   computed: {
@@ -19941,11 +19949,15 @@ __webpack_require__.r(__webpack_exports__);
     var country = "Select Country";
     var state = "Valid Phone Numbers";
     var stateMsg = "Valid Phone Numbers";
+    var queryParameters = {};
+    var query = "";
     return {
       meta: meta,
       country: country,
       state: state,
-      stateMsg: stateMsg
+      stateMsg: stateMsg,
+      queryParameters: queryParameters,
+      query: query
     };
   }
 });
@@ -20105,12 +20117,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $options.changeCountry($setup.getPhoneNumbersFiltered, "Select Country");
+      return $options.changeCountry($setup.getPhoneNumbers, "Select Country");
     })
   }, _hoisted_8), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.countries, function (country) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       onClick: function onClick($event) {
-        return $options.changeCountry($setup.getPhoneNumbersFiltered, country);
+        return $options.changeCountry($setup.getPhoneNumbers, country);
       },
       key: country
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(country), 1
@@ -20124,19 +20136,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $options.changeState($setup.getPhoneNumbersFiltered, "Valid Phone Numbers");
+      return $options.changeState($setup.getPhoneNumbers, "Valid Phone Numbers");
     }),
     "class": "dropdown-item",
     href: "#"
   }, "All")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.changeState($setup.getPhoneNumbersFiltered, "ok");
+      return $options.changeState($setup.getPhoneNumbers, "ok");
     }),
     "class": "dropdown-item",
     href: "#"
   }, "Valid")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.changeState($setup.getPhoneNumbersFiltered, "nok");
+      return $options.changeState($setup.getPhoneNumbers, "nok");
     }),
     "class": "dropdown-item",
     href: "#"
@@ -20264,24 +20276,21 @@ function useCompanies() {
   var isFirstPage = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(true);
 
   var getPhoneNumbers = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var page,
-          response,
-          _args = arguments;
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(query) {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/phoneNumbers?page=' + page);
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/phoneNumbers?' + query);
 
-            case 3:
+            case 2:
               response = _context.sent;
               phoneNumbers.value = response.data.data;
               checkPages(response);
 
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -20289,38 +20298,15 @@ function useCompanies() {
       }, _callee);
     }));
 
-    return function getPhoneNumbers() {
+    return function getPhoneNumbers(_x) {
       return _ref.apply(this, arguments);
     };
-  }();
+  }(); // const getPhoneNumbersFiltered = async (query) => {
+  //     let response = await axios.get('/api/phoneNumbers?'+query)
+  //     phoneNumbers.value = response.data.data
+  //     checkPages(response);
+  // }
 
-  var getPhoneNumbersFiltered = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(query) {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/phoneNumbers?' + query);
-
-            case 2:
-              response = _context2.sent;
-              phoneNumbers.value = response.data.data;
-              checkPages(response);
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function getPhoneNumbersFiltered(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
 
   function checkPages(response) {
     if (response.data.data.meta.current_page == response.data.data.meta.last_page) {
@@ -20339,7 +20325,6 @@ function useCompanies() {
   return {
     phoneNumbers: phoneNumbers,
     getPhoneNumbers: getPhoneNumbers,
-    getPhoneNumbersFiltered: getPhoneNumbersFiltered,
     isLastPage: isLastPage,
     isFirstPage: isFirstPage
   };

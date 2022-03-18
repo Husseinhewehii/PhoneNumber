@@ -9,8 +9,8 @@
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li @click="changeCountry(getPhoneNumbersFiltered, `Select Country`)" ><a class="dropdown-item" href="#">All</a></li>
-                    <li @click="changeCountry(getPhoneNumbersFiltered, country)" v-for="country in countries" :key="country"><a class="dropdown-item" href="#">{{country}}</a></li>
+                    <li @click="changeCountry(getPhoneNumbers, `Select Country`)" ><a class="dropdown-item" href="#">All</a></li>
+                    <li @click="changeCountry(getPhoneNumbers, country)" v-for="country in countries" :key="country"><a class="dropdown-item" href="#">{{country}}</a></li>
                 </ul>
             </div>
 
@@ -21,9 +21,9 @@
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a @click="changeState(getPhoneNumbersFiltered, `Valid Phone Numbers`)" class="dropdown-item" href="#">All</a></li>
-                    <li><a @click="changeState(getPhoneNumbersFiltered, `ok`)" class="dropdown-item" href="#">Valid</a></li>
-                    <li><a @click="changeState(getPhoneNumbersFiltered, `nok`)" class="dropdown-item" href="#">InValid</a></li>
+                    <li><a @click="changeState(getPhoneNumbers, `Valid Phone Numbers`)" class="dropdown-item" href="#">All</a></li>
+                    <li><a @click="changeState(getPhoneNumbers, `ok`)" class="dropdown-item" href="#">Valid</a></li>
+                    <li><a @click="changeState(getPhoneNumbers, `nok`)" class="dropdown-item" href="#">InValid</a></li>
                 </ul>
             </div>
 
@@ -82,7 +82,7 @@ import { onMounted } from 'vue';
 
 export default {
     setup() {
-        const { phoneNumbers, getPhoneNumbers, getPhoneNumbersFiltered, isLastPage, isFirstPage } = usephoneNumbers()
+        const { phoneNumbers, getPhoneNumbers, isLastPage, isFirstPage } = usephoneNumbers()
 
         onMounted(getPhoneNumbers)
 
@@ -90,45 +90,49 @@ export default {
             phoneNumbers,
             isLastPage,
             isFirstPage,
-            getPhoneNumbers,
-            getPhoneNumbersFiltered
+            getPhoneNumbers
         }
     },
     methods:{
         nextButton(getPhoneNumbers){
             this.meta = this.phoneNumbers.meta
             if(this.meta.current_page < this.meta.last_page){
-                getPhoneNumbers(this.meta.current_page+1);
+                this.queryParameters.page = "page="+parseInt(this.meta.current_page+1);
+                this.prepareFilterQuery();
+                getPhoneNumbers(this.query);
             }
         },
         previousButton(getPhoneNumbers){
             this.meta = this.phoneNumbers.meta
             if(this.meta.current_page > 1){
-                getPhoneNumbers(this.meta.current_page-1);
+                this.queryParameters.page = "page="+parseInt(this.meta.current_page-1);
+                this.prepareFilterQuery();
+                getPhoneNumbers(this.query);
             }
         },
-        changeCountry(getPhoneNumbersFiltered, country){
+        changeCountry(getPhoneNumbers, country){
             this.country = country;
-            let query = this.prepareFilterQuery();
-            getPhoneNumbersFiltered(query);
+            this.queryParameters.country = "filter[country]="+this.country;
+            this.queryParameters.page = "page=1";
+            if(this.country == "Select Country"){
+                delete this.queryParameters.country;
+            }
+            this.prepareFilterQuery();
+            getPhoneNumbers(this.query);
         },
-        changeState(getPhoneNumbersFiltered, state){
+        changeState(getPhoneNumbers, state){
             this.state = state;
             this.stateMsg = this.state == "ok" ? "Valid" : this.state == "nok" ? "InValid" : "Valid Phone Numbers"
-            let query = this.prepareFilterQuery();
-            getPhoneNumbersFiltered(query);
+            this.queryParameters.state = "filter[state]="+this.state;
+            this.queryParameters.page = "page=1";
+            if(this.state == "Valid Phone Numbers"){
+                delete this.queryParameters.state;
+            }
+            this.prepareFilterQuery();
+            getPhoneNumbers(this.query);
         },
         prepareFilterQuery(){
-            let query = "";
-            let stateParameter = this.state == "Valid Phone Numbers" ? "" : "filter[state]="+this.state;
-            let countryParameter = this.country == "Select Country" ? "" : "filter[country]="+this.country;
-
-            query += stateParameter;
-            query += countryParameter;
-            if(stateParameter && countryParameter){
-                query = `${stateParameter}&${countryParameter}`;
-            }
-            return query;
+            this.query = Object.values(this.queryParameters).reduce((t, value) => t + "&" + value);
         }
     },
     computed:{
@@ -141,11 +145,15 @@ export default {
         let country = "Select Country";
         let state = "Valid Phone Numbers";
         let stateMsg = "Valid Phone Numbers";
+        let queryParameters = {};
+        let query = "";
         return {
             meta,
             country,
             state,
             stateMsg,
+            queryParameters,
+            query,
         }
     }
 }

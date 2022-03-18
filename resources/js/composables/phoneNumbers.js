@@ -6,17 +6,17 @@ export default function useCompanies() {
     const isLastPage = ref(false)
     const isFirstPage = ref(true)
 
-    const getPhoneNumbers = async (page = 1) => {
-        let response = await axios.get('/api/phoneNumbers?page='+page)
-        phoneNumbers.value = response.data.data
-        checkPages(response);
-    }
-
-    const getPhoneNumbersFiltered = async (query) => {
+    const getPhoneNumbers = async (query) => {
         let response = await axios.get('/api/phoneNumbers?'+query)
         phoneNumbers.value = response.data.data
         checkPages(response);
     }
+
+    // const getPhoneNumbersFiltered = async (query) => {
+    //     let response = await axios.get('/api/phoneNumbers?'+query)
+    //     phoneNumbers.value = response.data.data
+    //     checkPages(response);
+    // }
 
     function checkPages(response){
         if(response.data.data.meta.current_page == response.data.data.meta.last_page){
@@ -34,7 +34,6 @@ export default function useCompanies() {
     return {
         phoneNumbers,
         getPhoneNumbers,
-        getPhoneNumbersFiltered,
         isLastPage,
         isFirstPage,
     }
