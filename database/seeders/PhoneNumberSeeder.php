@@ -47,6 +47,7 @@ class PhoneNumberSeeder extends Seeder
 
         foreach ($numbers as $number) {
             $this->createValidPhoneNumber($number);
+            $this->createValidPhoneNumber($number);
             $this->createInValidPhoneNumber($number);
         }
     }
