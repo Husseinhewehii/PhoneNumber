@@ -41,9 +41,9 @@ A Single Page Application That Lists Phone Numbers
 
 ## Prerequisites
 
-- **[PHP > 7.3]**
-- **[Laravel 8.75]**
-- **[Node]**
+- **PHP > 7.3**
+- **Laravel 8.75**
+- **Node**
 
 
 ## Installation
