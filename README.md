@@ -41,9 +41,9 @@ A Single Page Application That Lists Phone Numbers
 
 ## Prerequisites
 
-- **PHP >= 7.3**
-- **Composer**
-- **Node**
+- **[PHP >= 7.3](https://www.php.net/downloads.php)**
+- **[Composer](https://getcomposer.org/)**
+- **[Node](https://nodejs.org/en/download/)**
 
 
 ## Installation
