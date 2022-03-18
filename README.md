@@ -23,7 +23,7 @@ A Single Page Application That Lists Phone Numbers
 
 ### Back-End
 
-- **[PHP 8.0](https://www.php.net/docs.php)**
+- **[PHP 7.4](https://www.php.net/docs.php)**
 - **[Laravel 8](https://laravel.com/docs/8.x/installation)**
 
 ### Front-End
