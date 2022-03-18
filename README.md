@@ -41,10 +41,10 @@ A Single Page Application That Lists Phone Numbers
 ## Installation
 
 
-> Download Project
+> Download Project 
 
 ``` bash
-git clone https://github.com/hussienhewehii/PhoneNumber.git
+git clone https://github.com/Husseinhewehii/PhoneNumber.git
 ```
 
 > Install Composer Packages
