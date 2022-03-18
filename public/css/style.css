@@ -1,0 +1,64 @@
+.phone_numbers_title{
+    margin: 2% 0% 5% 0%;
+}
+
+.phone_number_list_div{
+    margin: 10px 0px 0px 0px;
+}
+
+.phone_number_list_table{
+    border: 2px solid;
+}
+
+.phone_filters{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn{
+    border: 2px solid;
+}
+
+.btn:hover{
+    border: 2px solid;
+}
+
+.phone_number_list_table th,td{
+    border-left: 2px solid;
+    line-height: 40px;
+}
+
+.phone_number_list_table thead th{
+    background-color: #d2d6d6e5;
+    line-height: 100%;
+}
+
+.phone_number_pagination_buttons{
+    display: flex;
+    justify-content: end;
+}
+
+.phone_number_pagination_buttons li{
+    box-shadow: 2px 3px;
+    color:black;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 5px 0px 5px;
+    width: 100px;
+}
+
+.phone_number_pagination_buttons li:hover{
+    background-color: rgb(155, 155, 155);
+    color:black
+}
+
+.phone_number_pagination_buttons a{
+    flex:2
+}
+
+.phone_number_pagination_buttons .unClickable{
+    cursor: not-allowed;
+    background-color: rgb(155, 155, 155);
+}
