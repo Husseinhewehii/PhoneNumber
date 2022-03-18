@@ -38,6 +38,14 @@ A Single Page Application That Lists Phone Numbers
 
 - **[SQLite](https://www.sqlite.org/docs.html)**
 
+
+## Prerequisites
+
+- **[PHP > 7.3]**
+- **[Laravel 8.75]**
+- **[Node]**
+
+
 ## Installation
 
 
