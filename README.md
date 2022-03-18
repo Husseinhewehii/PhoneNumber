@@ -71,10 +71,16 @@ npm run dev
 cp .env.example .env
 ```
 
+> Generate Key
+
+``` bash
+php artisan key:generate
+```
+
 > Create .env.testing file
 
 ``` bash
-cp .env.example .env.testing
+cp .env .env.testing
 ```
 
 > Configure .env files
@@ -103,12 +109,6 @@ but you can seed.
 
 ``` bash
 php artisan db:seed
-```
-
-> Generate Key
-
-``` bash
-php artisan key:generate
 ```
 
 > Run On Local Machine
