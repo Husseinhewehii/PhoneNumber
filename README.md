@@ -97,10 +97,12 @@ DB_DATABASE=testing_database
 #DB_PASSWORD=
 ```
 
-> Migrate & Seed Database 
+
+> You Don't Need to Create Or Migrate Database Cause I allowed the Database file to be uploaded to Github
+but you can seed. 
 
 ``` bash
-php artisan migrate --seed
+php artisan db:seed
 ```
 
 > Generate Key
