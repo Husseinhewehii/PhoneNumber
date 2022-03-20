@@ -67,7 +67,7 @@ composer install
 npm install
 ```
 
-> Complite Node Packages
+> Compile Node Packages
 
 ``` bash
 npm run dev
