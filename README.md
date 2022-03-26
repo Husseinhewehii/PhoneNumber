@@ -101,6 +101,9 @@ cp .env .env.testing
 > Configure .env file
 
 ``` bash
+APP_URL=http://localhost:8000
+MIX_APP_URL="${APP_URL}"
+
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
 #DB_PORT=3306
