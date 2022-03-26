@@ -56,6 +56,12 @@ A Single Page Application That Lists Phone Numbers
 git clone https://github.com/Husseinhewehii/PhoneNumber.git
 ```
 
+> Move To Project Directory
+
+``` bash
+cd PhoneNumber
+```
+
 > Install Composer Packages
 
 ``` bash
