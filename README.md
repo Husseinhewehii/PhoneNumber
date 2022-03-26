@@ -31,6 +31,7 @@ A Single Page Application That Lists Phone Numbers
 - **HTML**
 - **CSS**
 - **[Bootstrap 5](https://getbootstrap.com/)**
+- **[JavaScript](https://www.javascript.com/)**
 - **[VueJs 3](https://vuejs.org/)**
 - **[Vuex](https://vuex.vuejs.org/)**
 
